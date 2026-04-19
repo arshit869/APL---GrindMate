@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== GRINDMATE DESIGN SYSTEM ===== */
+
+:root {
+  --void: #0D0D0D;
+  --void-light: #1A1A2E;
+  --grind-pink: #FF3366;
+  --neon-teal: #00E5B4;
+  --gold: #FFD700;
+  --beast-purple: #7B2FBE;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--void);
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 51, 102, 0.4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 51, 102, 0.6);
+}
+
+/* Glassmorphism card */
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6;
+    transition: all 0.3s ease;
+  }
+  .glass-card:hover {
+    @apply bg-white/[0.07] border-white/20;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-card-static {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-grind-pink text-white font-semibold rounded-xl;
+    @apply hover:bg-grind-pink-dark transition-all duration-300;
+    @apply shadow-lg shadow-grind-pink/25 hover:shadow-grind-pink/40;
+    @apply active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-white/10 text-white font-semibold rounded-xl;
+    @apply hover:bg-white/20 transition-all duration-300;
+    @apply border border-white/20 hover:border-white/30;
+    @apply active:scale-95;
+  }
+
+  .btn-teal {
+    @apply px-6 py-3 bg-neon-teal text-void font-bold rounded-xl;
+    @apply hover:bg-neon-teal-dark transition-all duration-300;
+    @apply shadow-lg shadow-neon-teal/25 hover:shadow-neon-teal/40;
+    @apply active:scale-95;
+  }
+
+  .btn-purple {
+    @apply px-6 py-3 bg-beast-purple text-white font-semibold rounded-xl;
+    @apply hover:bg-beast-purple-dark transition-all duration-300;
+    @apply shadow-lg shadow-beast-purple/25 hover:shadow-beast-purple/40;
+    @apply active:scale-95;
+  }
+
+  .stat-number {
+    @apply font-mono font-bold tracking-tight;
+  }
+
+  .heading-xl {
+    @apply font-heading text-5xl md:text-7xl tracking-wide uppercase;
+  }
+
+  .heading-lg {
+    @apply font-heading text-3xl md:text-4xl tracking-wide uppercase;
+  }
+
+  .heading-md {
+    @apply font-heading text-xl md:text-2xl tracking-wide uppercase;
+  }
+
+  .tier-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider;
+  }
+}
+
+/* Tier badge colors */
+.tier-bronze { @apply bg-amber-900/40 text-amber-400 border border-amber-700/50; }
+.tier-silver { @apply bg-gray-600/40 text-gray-300 border border-gray-500/50; }
+.tier-gold { @apply bg-yellow-700/40 text-yellow-400 border border-yellow-600/50; }
+.tier-platinum { @apply bg-cyan-800/40 text-cyan-300 border border-cyan-600/50; }
+.tier-diamond { @apply bg-blue-800/40 text-blue-300 border border-blue-500/50; }
+.tier-legend { 
+  @apply text-yellow-200 border border-yellow-400/50;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 51, 102, 0.3));
+  animation: legendGlow 2s ease-in-out infinite;
+}
+
+@keyframes legendGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.5), 0 0 50px rgba(255, 51, 102, 0.2); }
+}
+
+/* Score ring CSS animation */
+.score-ring-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-ring-bg {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.score-ring-fill {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 8px var(--grind-pink));
+}
+
+/* Flame animation */
+.streak-flame {
+  filter: drop-shadow(0 0 6px rgba(255, 100, 0, 0.5));
+  animation: flame 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes flame {
+  0% { transform: scaleY(1) scaleX(1); }
+  100% { transform: scaleY(1.08) scaleX(0.96); }
+}
+
+/* Particle background */
+.particles-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 51, 102, 0.3);
+  border-radius: 50%;
+  animation: particleFloat 15s infinite;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+}
+
+/* Agent panel colors */
+.agent-teal { border-left: 3px solid #00E5B4; }
+.agent-amber { border-left: 3px solid #F59E0B; }
+.agent-coral { border-left: 3px solid #FF6B6B; }
+.agent-gold { border-left: 3px solid #FFD700; }
+.agent-purple { border-left: 3px solid #7B2FBE; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #FF3366, #FF6B9D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-teal {
+  background: linear-gradient(135deg, #00E5B4, #00B4D8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Page transitions */
+.page-container {
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+/* Nav active glow */
+.nav-active {
+  @apply text-grind-pink;
+  text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+}
+
+/* Toast animations */
+.toast-enter {
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Input styles */
+input, select, textarea {
+  @apply bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white;
+  @apply focus:outline-none focus:border-grind-pink/50 focus:ring-2 focus:ring-grind-pink/20;
+  @apply transition-all duration-300;
+  @apply placeholder:text-white/30;
+}
+
+/* Coin animation */
+.coin {
+  @apply absolute w-6 h-6 rounded-full bg-gold;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
